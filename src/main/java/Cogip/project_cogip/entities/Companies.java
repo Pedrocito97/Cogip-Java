@@ -1,8 +1,12 @@
 package Cogip.project_cogip.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Companies {
@@ -13,16 +17,25 @@ public class Companies {
 
     private String name;
 
+    private String country;
+
     @Column(unique=true)
     private String tva;
 
     @ManyToOne()
     @JoinColumn(name = "type_id", nullable = false)
     private Types type;
+    @CreationTimestamp
+    private LocalDateTime created_at;
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
 
-    private Date created_at;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Invoices> invoices;
 
-    private Date updated_at;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Contact> contacts;
+
 
     public int getId() {
         return id;
@@ -40,6 +53,22 @@ public class Companies {
         this.name = name;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
     public String getTva() {
         return tva;
     }
@@ -48,19 +77,19 @@ public class Companies {
         this.tva = tva;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public Types getType() {
+        return type;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setType(Types type) {
+        this.type = type;
     }
 
-    public Date getUpdated_at() {
-        return updated_at;
+    public List<Invoices> getInvoices() {
+        return invoices;
     }
 
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
+    public void setInvoices(List<Invoices> invoices) {
+        this.invoices = invoices;
     }
 }
