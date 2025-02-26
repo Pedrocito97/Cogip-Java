@@ -1,10 +1,10 @@
 package Cogip.project_cogip.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -21,11 +21,13 @@ public class Invoices {
 
     private Date due_date;
 
-    private int id_company;
-
-    private Date created_at;
-
-    private Date updated_at;
+    @ManyToOne
+    @JoinColumn(name = "id_company", nullable = false)
+    private Companies company;
+    @CreationTimestamp
+    private LocalDateTime created_at;
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
 
     public int getId() {
         return id;
@@ -59,27 +61,27 @@ public class Invoices {
         this.due_date = due_date;
     }
 
-    public int getId_company() {
-        return id_company;
+    public Companies getCompany() {
+        return company;
     }
 
-    public void setId_company(int id_company) {
-        this.id_company = id_company;
+    public void setCompany(Companies company) {
+        this.company = company;
     }
 
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-
-    public Date getUpdated_at() {
+    public LocalDateTime getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(Date updated_at) {
+    public void setUpdated_at(LocalDateTime updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public LocalDateTime getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(LocalDateTime created_at) {
+        this.created_at = created_at;
     }
 }
