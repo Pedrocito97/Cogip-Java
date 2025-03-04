@@ -50,7 +50,8 @@ public class InvoiceService {
     }
 
     public void updateInvoiceById(int id, InvoicesDto invoiceDto) {
-        Invoices invoice = invoicesRepository.findById(id).get();
+        Invoices invoice = invoicesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Invoice not found"));
         invoice.setPrice(invoiceDto.getPrice());
         invoice.setRef(invoiceDto.getRef());
         invoicesRepository.save(invoice);

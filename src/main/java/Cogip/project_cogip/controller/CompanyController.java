@@ -4,10 +4,8 @@ import Cogip.project_cogip.dto.CompanyDto;
 import Cogip.project_cogip.dto.CompanyGetDto;
 import Cogip.project_cogip.dto.ContactDto;
 import Cogip.project_cogip.dto.InvoicesDto;
-import Cogip.project_cogip.entities.Companies;
 import Cogip.project_cogip.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
